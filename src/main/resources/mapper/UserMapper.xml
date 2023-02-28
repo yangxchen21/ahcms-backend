@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.design.ahcms.mapper.UserMapper">
+    <select id="selectUserList" resultType="com.design.ahcms.domain.User">
+        select * from user;
+    </select>
+    <insert id="saveUser" parameterType="com.design.ahcms.domain.User" useGeneratedKeys="true" keyProperty="id">
+        insert into user (account_number,name,phone,sex,idcard_number,type,email,address,post_code,department_id) values (#{accountNumber},#{name},#{phone},#{sex},#{idcardNumber},#{type},#{email},#{address},#{postCode},#{departmentId})
+    </insert>
+</mapper>
