@@ -11,3 +11,7 @@ spring:
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
 
+sa-token:
+  token-name: cmstoken
+  token-style: uuid
+

@@ -1,20 +1,19 @@
 package com.design.ahcms.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class User implements Serializable {
     private Long id;
-    private String accountNumber;
-    private String name;
-    private String phone;
-    private String sex;
-    private String idcardNumber;
-    private int type;
-    private String email;
-    private String address;
-    private String postCode;
-    private int status;
-    private Long departmentId;
+   private String username;
+   private String phone;
+   private String password;
+   private String salt;
+   private Long detailId;
+   private int status;
 }

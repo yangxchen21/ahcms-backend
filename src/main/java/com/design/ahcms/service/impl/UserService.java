@@ -1,10 +1,11 @@
 package com.design.ahcms.service.impl;
 
 import com.design.ahcms.domain.User;
+import com.design.ahcms.domain.UserDetail;
+import com.design.ahcms.dto.RegisterDto;
 
-import java.util.List;
 
 public interface UserService {
-    public List<User> selectUserList();
-    public long saveUser(User user);
+    void register(RegisterDto registerDto);
+    User getUserByName(String name);
 }

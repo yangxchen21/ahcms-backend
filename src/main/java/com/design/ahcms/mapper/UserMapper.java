@@ -1,10 +1,13 @@
 package com.design.ahcms.mapper;
 
 import com.design.ahcms.domain.User;
+import com.design.ahcms.domain.UserDetail;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
+@Repository
 public interface UserMapper {
-    List<User> selectUserList();
-    void saveUser(User user);
-    void saveUserAndPassword(User user,String password);
+    void saveUserPassword(User user);
+    void saveUserDetail(UserDetail userDetail);
+    User getUser(String name);
+    void deleteUser(Long id);
 }

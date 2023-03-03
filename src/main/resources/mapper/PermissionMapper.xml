@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.design.ahcms.mapper.PermissionMapper">
+
+    <select id="getPermissionList"  parameterType="list" resultType="com.design.ahcms.domain.CMSPermission">
+        select * from permission as p where id in (
+            select rp.permission_id  from roles_permisson as rp  where rp.role_id in
+        <foreach collection="ids" open="(" close=")" separator="," item="id" index="i">
+            #{id}
+         </foreach>
+        )
+    </select>
+</mapper>
