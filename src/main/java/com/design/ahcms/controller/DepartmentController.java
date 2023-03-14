@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin
+
 @RequestMapping("/department")
 public class DepartmentController {
     @Autowired

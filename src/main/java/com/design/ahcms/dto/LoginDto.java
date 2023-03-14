@@ -1,9 +1,13 @@
 package com.design.ahcms.dto;
 
 import com.design.ahcms.domain.User;
+import lombok.Data;
 
 import java.util.List;
-
-public class LoginDto extends User {
-    private List<String> roles;
+@Data
+public class LoginDto {
+    private String phone;
+    private String username;
+    private String password;
+    private String code;
 }

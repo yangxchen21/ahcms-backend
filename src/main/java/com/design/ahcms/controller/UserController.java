@@ -5,17 +5,20 @@ import cn.dev33.satoken.util.SaResult;
 import com.design.ahcms.common.Result;
 import com.design.ahcms.domain.User;
 import com.design.ahcms.domain.UserDetail;
+import com.design.ahcms.dto.LoginDto;
 import com.design.ahcms.dto.RegisterDto;
 import com.design.ahcms.service.impl.UserService;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.management.relation.RelationSupport;
 import java.util.Objects;
 
 @Slf4j
 @RestController
-@CrossOrigin
+
 @RequestMapping("/user")
 public class UserController {
     @Autowired
@@ -31,6 +34,15 @@ public class UserController {
         userService.register(registerDto);
         return Result.success("注册成功");
     }
+    @PostMapping("/code")
+    public Result<String> code(@RequestParam("phone") String phone, HttpSession session){
+        userService.code(phone, session);
+        return Result.success("成功");
+    }
+    @PostMapping("/login")
+    public Result<String> loginByCode(@RequestBody LoginDto loginDto,HttpSession session){
+        return userService.loginByCode(loginDto,session);
+    };
     @GetMapping("/login")
     public Result<User> login(String username,String password){
         User user = userService.getUserByName(username);
@@ -42,6 +54,7 @@ public class UserController {
         }
         return Result.error(500,"登录失败");
     }
+
     @PostMapping("/logout")
     public Result<String> logout(){
         StpUtil.logout();

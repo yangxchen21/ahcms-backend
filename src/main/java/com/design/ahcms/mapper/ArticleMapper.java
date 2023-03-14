@@ -3,6 +3,8 @@ package com.design.ahcms.mapper;
 import com.design.ahcms.domain.Article;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+import java.util.List;
+
 /**
 * @author 24088
 * @description 针对表【article】的数据库操作Mapper
@@ -10,7 +12,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @Entity com.design.ahcms.domain.Article
 */
 public interface ArticleMapper extends BaseMapper<Article> {
-
 }
 
 
