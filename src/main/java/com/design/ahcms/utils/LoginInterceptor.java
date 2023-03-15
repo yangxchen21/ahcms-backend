@@ -19,10 +19,10 @@ public class LoginInterceptor implements HandlerInterceptor {
     //前置拦截器
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        log.info("UserHoler:"+UserHolder.getUser());
+
         //判断是否需要拦截（threadloacal里是否有用户）
         if(UserHolder.getUser()==null){
-            log.info("err..");
+
             response.setStatus(401);
             return false;
         }

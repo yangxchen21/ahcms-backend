@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
+import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
@@ -32,6 +33,9 @@ public class ResponseAdvice implements ResponseBodyAdvice {
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
+        }
+        if(body instanceof Resource){
+            return body;
         }
         return Result.success(body);
     }

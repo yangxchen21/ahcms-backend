@@ -25,8 +25,8 @@ public class RefreshTokenInterceptor implements HandlerInterceptor {
 //        HttpSession session = request.getSession();
         //1. 从请求头获取token
         String token = request.getHeader("authorization");
+        log.info("header-token:"+token);
 
-        log.info("token:"+token);
         if(StrUtil.isBlank(token)){
             //response.setStatus(401);
             return true;
@@ -43,7 +43,7 @@ public class RefreshTokenInterceptor implements HandlerInterceptor {
             return true;
         }
         UserDto userDto = BeanUtil.fillBeanWithMap(userMap, new UserDto(), false);
-        log.info("hloder1"+userDto.toString());
+
         UserHolder.saveUser(userDto);
         stringRedisTemplate.expire(key,RedisConstants.LOGIN_USER_TTL, TimeUnit.MINUTES);
         //4.不存在，拦截

@@ -24,7 +24,7 @@ public class Authentication implements StpInterface {
     public List<String> getPermissionList(Object loginId, String s) {
         List<Role> roleList = roleMapper.getRoleList(Long.parseLong((String)loginId));
         List<Long> roleIds=roleList.stream().map(Role::getId).toList();
-        log.info("----"+ roleIds);
+
         //查询用户权限列表
         List<CMSPermission> list = permissionMapper.getPermissionList(roleIds);
         List<String> permission=list.stream().map(item->

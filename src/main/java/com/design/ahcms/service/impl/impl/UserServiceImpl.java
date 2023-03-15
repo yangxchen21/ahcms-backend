@@ -19,6 +19,7 @@ import com.design.ahcms.mapper.UserMapper;
 import com.design.ahcms.service.impl.UserService;
 import com.design.ahcms.utils.RedisConstants;
 import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -70,13 +71,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
         //4.保存到session
         session.setAttribute("code",code);
         //发送验证码（这里模拟）
-        log.info("发送短信验证码成功"+code);
+       log.info("code------"+code);
         //保存验证码到redis
         stringRedisTemplate.opsForValue().set(RedisConstants.LOGIN_CODE_KEY +phone,code,RedisConstants.LOGIN_CODE_TTL, TimeUnit.MINUTES);
     }
 
     @Override
-    public Result<String> loginByCode(LoginDto loginDto, HttpSession session) {
+    public Result<UserDto> loginByCode(LoginDto loginDto, HttpSession session) {
         //1.校验手机号
         //2.校验验证码
 //        Object cacheCode=session.getAttribute("code");
@@ -102,7 +103,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
         String token = UUID.randomUUID().toString(true);
         //2.将user对象转为hash存储
         UserDto userDto = BeanUtil.copyProperties(user, UserDto.class);
-
+        userDto.setToken(token);
         Map<String, Object> userMap = new HashMap<>();
         userMap.put("id",userDto.getId().toString());
         userMap.put("phone",userDto.getPhone());
@@ -113,11 +114,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
         UserHolder.saveUser(userDto);
         stringRedisTemplate.expire(key,RedisConstants.LOGIN_USER_TTL,TimeUnit.MINUTES);
 
-        log.info("dto:"+userDto);
-        log.info("hld:"+UserHolder.getUser());
-        //3.存储
-//        StpUtil.login(user.getId());
-        log.info(token);
-        return Result.success(token);
+
+
+        return Result.success(userDto);
     }
+
+    @Override
+    public void logout(HttpServletRequest request) {
+        String token = request.getHeader("authorization");
+        String key=RedisConstants.LOGIN_TOKEN + token;
+        UserHolder.removeUser();
+        stringRedisTemplate.delete(key);
+    }
+
+
 }

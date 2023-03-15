@@ -1,5 +1,6 @@
 package com.design.ahcms.controller;
 
+import cn.hutool.core.lang.Console;
 import cn.hutool.core.lang.UUID;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
@@ -7,6 +8,7 @@ import com.design.ahcms.common.Result;
 import com.design.ahcms.domain.Img;
 import com.design.ahcms.service.impl.ImgService;
 import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -15,7 +17,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 
 @Slf4j
 @RestController
@@ -34,4 +38,5 @@ public class ImgController {
     public Result<String> delete(String[] urls){
         return null;
     }
+
 }

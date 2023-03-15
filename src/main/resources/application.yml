@@ -1,5 +1,6 @@
 server:
   port: 8083
+
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -17,7 +18,11 @@ spring:
           max-idle: 8
           min-idle: 0
           max-wait: 100
-
+  web:
+    resources:
+      static-locations: file:D:\ahcmstore
+  mvc:
+    static-path-pattern: /static/**
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
 sa-token:
@@ -29,3 +34,6 @@ mybatis-plus:
 
 img:
   path: D:\ahcmstore
+  savePath: http:\\localhost:8083\static\
+ahcmstore:
+  appendixPath: D:\ahcmstore\

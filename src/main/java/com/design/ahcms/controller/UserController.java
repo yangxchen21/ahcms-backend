@@ -7,7 +7,9 @@ import com.design.ahcms.domain.User;
 import com.design.ahcms.domain.UserDetail;
 import com.design.ahcms.dto.LoginDto;
 import com.design.ahcms.dto.RegisterDto;
+import com.design.ahcms.dto.UserDto;
 import com.design.ahcms.service.impl.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +42,7 @@ public class UserController {
         return Result.success("成功");
     }
     @PostMapping("/login")
-    public Result<String> loginByCode(@RequestBody LoginDto loginDto,HttpSession session){
+    public Result<UserDto> loginByCode(@RequestBody LoginDto loginDto, HttpSession session){
         return userService.loginByCode(loginDto,session);
     };
     @GetMapping("/login")
@@ -56,8 +58,9 @@ public class UserController {
     }
 
     @PostMapping("/logout")
-    public Result<String> logout(){
-        StpUtil.logout();
+    public Result<String> logout(HttpServletRequest request){
+        //StpUtil.logout();
+        userService.logout(request);
         return Result.success("注销成功");
     }
 }
