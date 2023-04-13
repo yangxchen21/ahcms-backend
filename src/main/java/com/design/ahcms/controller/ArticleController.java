@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.design.ahcms.common.Result;
 import com.design.ahcms.domain.Article;
 import com.design.ahcms.dto.ArticleDto;
+import com.design.ahcms.dto.ArticleSearchDto;
+import com.design.ahcms.dto.ArticleWithImgDto;
 import com.design.ahcms.service.impl.ArticleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +22,14 @@ import java.util.List;
 public class ArticleController {
     @Autowired
     private ArticleService articleService;
-    @GetMapping("/page")
-    public Result<Page<Article>> page(int pageIndex, int pageSize, String title,Integer type){
-        Page<Article> page=new Page<>(pageIndex,pageSize);
-        LambdaQueryWrapper<Article> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.like(title!=null,Article::getTitle,title);
-        lambdaQueryWrapper.eq(type!=null,Article::getType,type);
-        return Result.success(articleService.page(page,lambdaQueryWrapper) );
-    }
+//    @GetMapping("/page")
+//    public Result<Page<Article>> page(int pageIndex, int pageSize, String title,Integer type){
+//        Page<Article> page=new Page<>(pageIndex,pageSize);
+//        LambdaQueryWrapper<Article> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+//        lambdaQueryWrapper.like(title!=null,Article::getTitle,title);
+//        lambdaQueryWrapper.eq(type!=null,Article::getType,type);
+//        return Result.success(articleService.page(page,lambdaQueryWrapper) );
+//    }
     @GetMapping("/{id}")
     public Result<Article> getById(@PathVariable  Long id){
         return articleService.queryById(id);
@@ -66,8 +68,19 @@ public class ArticleController {
 
     }
     @PostMapping
-    public Result<String> saveArticleWithAppendix(@RequestBody ArticleDto articleDto){
+    public Result<Long> saveArticleWithAppendix(@RequestBody ArticleDto articleDto){
         articleService.saveWithAppendix(articleDto);
-        return Result.success("保存成功");
+
+        return Result.success(articleDto.getId());
+    }
+    @GetMapping("/page")
+    public Result<Page<Article>>pageWithImgTest(int pageIndex, int pageSize, String title,Integer type){
+
+        return Result.success( articleService.pageWithImg(pageIndex,pageSize,title,type));
+    }
+    @GetMapping
+    public Result<List<ArticleSearchDto>> queryByTitle(@RequestParam String title){
+
+        return Result.success(articleService.queryByTitle(title));
     }
 }

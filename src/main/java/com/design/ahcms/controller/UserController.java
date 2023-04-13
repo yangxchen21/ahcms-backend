@@ -46,20 +46,14 @@ public class UserController {
         return userService.loginByCode(loginDto,session);
     };
     @GetMapping("/login")
-    public Result<User> login(String username,String password){
-        User user = userService.getUserByName(username);
-        if(Objects.equals(user.getPassword(), password)){
-            StpUtil.login(user.getId());
+    public Result<UserDto> login(String username,String password){
 
-
-            return Result.success(user);
-        }
-        return Result.error(500,"登录失败");
+        return userService.loginByUsername(username,password);
     }
 
     @PostMapping("/logout")
     public Result<String> logout(HttpServletRequest request){
-        //StpUtil.logout();
+
         userService.logout(request);
         return Result.success("注销成功");
     }

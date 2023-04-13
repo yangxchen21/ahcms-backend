@@ -1,10 +1,15 @@
 package com.design.ahcms.service.impl;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.design.ahcms.common.Result;
 import com.design.ahcms.domain.Article;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.design.ahcms.dto.ArticleDto;
+import com.design.ahcms.dto.ArticleSearchDto;
+import com.design.ahcms.dto.ArticleWithImgDto;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
 * @author 24088
@@ -23,4 +28,6 @@ public interface ArticleService extends IService<Article> {
      */
     @Transactional
     void removeWithAppendix(Long id);
+    Page<Article> pageWithImg(int pageIndex, int pageSize, String title, Integer type);
+    List<ArticleSearchDto> queryByTitle(String title);
 }

@@ -16,10 +16,10 @@ public interface UserService extends IService<User> {
     @Transactional
     void register(RegisterDto registerDto);
     
-    User getUserByName(String name);
+
 
     void code(String phone, HttpSession session);
     Result<UserDto> loginByCode(LoginDto loginDto, HttpSession session);
-
+    Result<UserDto> loginByUsername(String username,String password);
     void logout(HttpServletRequest request);
 }

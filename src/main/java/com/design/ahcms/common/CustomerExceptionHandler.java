@@ -16,6 +16,7 @@ public class CustomerExceptionHandler {
     }
     @ExceptionHandler(Exception.class)
     public Result Execption(Exception e) {
+        e.printStackTrace();
         log.error("未知异常！", e);
         return Result.error(ResultEnum.FAIL.getCode(),ResultEnum.FAIL.getMsg());
     }

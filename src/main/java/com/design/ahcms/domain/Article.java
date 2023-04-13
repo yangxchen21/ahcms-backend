@@ -34,7 +34,7 @@ public class Article implements Serializable {
     private Integer type;
 
     private String title;
-
+    private String firstImg;
     private static final long serialVersionUID = 1L;
 
 
